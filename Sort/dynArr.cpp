@@ -290,8 +290,8 @@ void DynArr::shellSort() const
 }
 
 
-// Сортировка Шелла с шагом "1, 3, 7, 15, 31, ..." (последовательность Седжвика)
-void DynArr::shellSortSedgewick() const
+// Сортировка Шелла с шагом "1, 3, 7, 15, 31, ..." (последовательность Хиббарда)
+void DynArr::shellSort2() const
 {
     int n = getLen(), gap = 1;
 
@@ -316,8 +316,8 @@ void DynArr::shellSortSedgewick() const
 }
 
 
-// Сортировка Шелла с шагом "1, 4, 13, 40, 121, ..." (последовательность пратт)
-void DynArr::shellSortPratt() const
+// Сортировка Шелла с шагом "1, 4, 13, 40, 121, ..." (последовательность Кнута)
+void DynArr::shellSort3() const
 {
     int n = getLen(), gap = 1;
 

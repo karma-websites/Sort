@@ -18,8 +18,8 @@ public:
     void mergeSort(int low, int high) const;
     void quickSort(int low, int high) const;
     void shellSort() const;
-    void shellSortSedgewick() const;
-    void shellSortPratt() const;
+    void shellSort2() const;
+    void shellSort3() const;
     void heapSort(int low, int high) const;
     void timSort() const;
     void introSort() const;
