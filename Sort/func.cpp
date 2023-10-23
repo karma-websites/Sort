@@ -56,12 +56,10 @@ int getValue()
 
 void newArrArr(DynArr** const arrArr, int lenArrArr)
 {
-    int lenArr = 0;
     for (size_t i = 0; i < lenArrArr; i++)
     {
         cout << i + 1 << ") ¬ведите размер массива: ";
-        //int lenArr = getValue();
-        lenArr += 100;
+        int lenArr = getValue();
         arrArr[i] = new DynArr(lenArr);
     }
     cout << endl << endl;
