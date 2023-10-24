@@ -16,8 +16,8 @@ const char* NAMESORT[]
     "MergeSort",
     "QuickSort",
     "ShellSort",
-    "ShellSortSedgewick",
-    "ShellSortPratt",
+    "ShellSort2",
+    "ShellSort3",
     "HeapSort",
     "TimSort",
     "IntroSort"
@@ -105,10 +105,10 @@ double timeSort(DynArr** arrArr, int numSort, int i)
         time = measureTime(bind(&DynArr::shellSort, arrArr[i]));
         break;
     case 7:
-        time = measureTime(bind(&DynArr::shellSortSedgewick, arrArr[i]));
+        time = measureTime(bind(&DynArr::shellSort2, arrArr[i]));
         break;
     case 8:
-        time = measureTime(bind(&DynArr::shellSortPratt, arrArr[i]));
+        time = measureTime(bind(&DynArr::shellSort3, arrArr[i]));
         break;
     case 9:
         time = measureTime(bind(&DynArr::heapSort, arrArr[i], 0, arrArr[i]->getLen() - 1));
