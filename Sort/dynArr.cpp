@@ -33,6 +33,24 @@ void DynArr::clear()
 }
 
 
+int DynArr::getEl(int index) const
+{
+    if (index > -1 && index < getLen())
+    {
+        return arr[index];
+    }
+}
+
+
+void DynArr::setEl(int index, int elem)
+{
+    if (index > -1 && index < getLen())
+    {
+        arr[index] = elem;
+    }
+};
+
+
 void DynArr::fill(int typeSort) const
 {
     switch (typeSort)
@@ -163,6 +181,7 @@ void DynArr::insertSort(int low, int high) const
 {
     if (low < 0 || low >= getLen() || high < 0 || high >= getLen())
         return;
+
     for (int i = low + 1; i <= high; i++)
     {
         int sorted = i - 1;
@@ -290,54 +309,57 @@ void DynArr::shellSort() const
 }
 
 
-// Сортировка Шелла с шагом "1, 3, 7, 15, 31, ..." (последовательность Хиббарда)
-void DynArr::shellSort2() const
-{
-    int n = getLen(), gap = 1;
-
-    while (gap < n / 3)
-    {
-        gap = 3 * gap + 1;
-    }
-       
-    while (gap >= 1) 
-    {
-        for (int i = gap; i < n; i++) 
-        {
-            int temp = arr[i], j;
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
-            {
-                arr[j] = arr[j - gap];
-            }
-            arr[j] = temp;
-        }
-        gap /= 2;
-    }
-}
-
-
 // Сортировка Шелла с шагом "1, 4, 13, 40, 121, ..." (последовательность Кнута)
-void DynArr::shellSort3() const
+void DynArr::shellSortKnuth() const
 {
     int n = getLen(), gap = 1;
 
-    while (gap < n)
+    while (gap < n / 3) 
     {
-        gap = 3 * gap + 1;
+        gap = gap * 3 + 1;
     }
 
     while (gap > 0) 
     {
         for (int i = gap; i < n; i++) 
         {
-            int temp = arr[i], j;
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+            int temp = arr[i], j = i;
+
+            while (j >= gap && arr[j - gap] > temp) 
             {
                 arr[j] = arr[j - gap];
+                j -= gap;
             }
             arr[j] = temp;
         }
         gap /= 3;
+    }
+}
+
+// Сортировка Шелла с шагом "1, 3, 7, 15, 31, 63 ..." (последовательность Хиббарда)
+void DynArr::shellSortHib() const
+{
+    int n = getLen(), gap = 1;
+
+    while (gap < n / 2)
+    {
+        gap = gap * 2 + 1;
+    }
+
+    while (gap > 0)
+    {
+        for (int i = gap; i < n; i++)
+        {
+            int temp = arr[i], j = i;
+
+            while (j >= gap && arr[j - gap] > temp)
+            {
+                arr[j] = arr[j - gap];
+                j -= gap;
+            }
+            arr[j] = temp;
+        }
+        gap /= 2;
     }
 }
 

@@ -18,8 +18,8 @@ public:
     void mergeSort(int low, int high) const;
     void quickSort(int low, int high) const;
     void shellSort() const;
-    void shellSort2() const;
-    void shellSort3() const;
+    void shellSortKnuth() const;
+    void shellSortHib() const;
     void heapSort(int low, int high) const;
     void timSort() const;
     void introSort() const;
@@ -32,6 +32,8 @@ public:
 
     int getBegEl() const { return  arr[0]; }
     int getEndEl() const { return  arr[getLen() - 1]; }
+    int getEl(int index) const;
+    void setEl(int index, int elem);
     int getLen() const { return lenArr; }
     bool isEmpty() const { return lenArr == 0; }
 
