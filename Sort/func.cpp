@@ -56,10 +56,11 @@ int getValue()
 
 void newArrArr(DynArr** const arrArr, int lenArrArr)
 {
+    int lenArr = 0;
     for (size_t i = 0; i < lenArrArr; i++)
     {
         cout << i + 1 << ") Введите размер массива: ";
-        int lenArr = getValue();
+        lenArr = getValue();
         arrArr[i] = new DynArr(lenArr);
     }
     cout << endl << endl;
@@ -192,7 +193,8 @@ void process(DynArr** const arrArr, int lenArrArr, ofstream& outFile)
         }
         else if (numSort > 0 && numSort <= lenNAMESORT)
         {
-            outFile << "Сортировка №" << numSort << ": " << NAMESORT[numSort - 1] << endl << endl;
+            outFile << setfill('=') << setw(120);
+            outFile << "\n\nСортировка №" << numSort << ": " << NAMESORT[numSort - 1] << endl << endl;
             cout << "Сортировка №" << numSort << ": " << NAMESORT[numSort - 1] << endl << endl;
 
             int lenTYPESORT = sizeof(TYPESORT) / sizeof(TYPESORT[0]);
@@ -204,8 +206,6 @@ void process(DynArr** const arrArr, int lenArrArr, ofstream& outFile)
             }
 
             cout << endl;
-
-            outFile << setfill('-') << setw(120) << endl << endl;
         }
         else
         {

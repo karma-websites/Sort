@@ -36,6 +36,6 @@ double measureTime(T function)
     auto startTime = steady_clock::now();
     function();
     auto endTime = steady_clock::now();
-    auto elapsed = duration_cast<microseconds>(endTime - startTime);
+    auto elapsed = duration_cast<nanoseconds>(endTime - startTime);
     return (double)elapsed.count();
 }
