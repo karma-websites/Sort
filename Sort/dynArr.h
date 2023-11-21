@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <fstream>
 #include <cmath>
@@ -9,8 +10,9 @@ using namespace std;
 class DynArr
 {
 public:
+    DynArr() {}
     DynArr(int lenArr);
-    ~DynArr();
+    ~DynArr() {};
 
     void bubbleSort() const;
     void selectionSort() const;

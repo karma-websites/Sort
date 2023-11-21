@@ -1,6 +1,6 @@
 #include "func.h"
 
-const char* TYPESORT[]
+const string TYPESORT[]
 {
     "Sort",
     "HalfSort",
@@ -8,7 +8,7 @@ const char* TYPESORT[]
     "RandSort"
 };
 
-const char* NAMESORT[]
+const string NAMESORT[]
 {
     "BubbleSort",
     "SelectionSort",
@@ -54,71 +54,71 @@ int getValue()
 
 // Функции обработки массива указателей на классы массивов
 
-void newArrArr(DynArr** const arrArr, int lenArrArr)
+void newDynArr(DynArr* const dynArr, int lenDynArr)
 {
     int lenArr = 0;
-    for (size_t i = 0; i < lenArrArr; i++)
+    for (size_t i = 0; i < lenDynArr; i++)
     {
         cout << i + 1 << ") Введите размер массива: ";
         lenArr = getValue();
-        arrArr[i] = new DynArr(lenArr);
+        dynArr[i] = DynArr(lenArr);
     }
     cout << endl << endl;
 }
 
 
-void clArrArr(DynArr**& arrArr, int& lenArrArr)
+void clDynArr(DynArr*& dynArr, int& lenDynArr)
 {
-    for (size_t i = 0; i < lenArrArr; i++)
+    for (size_t i = 0; i < lenDynArr; i++)
     {
-        arrArr[i]->clear();
+        dynArr[i].clear();
     }
-    if (arrArr)
+    if (dynArr)
     {
-        delete[] arrArr;
-        arrArr = nullptr;
-        lenArrArr = 0;
+        delete[] dynArr;
+        dynArr = nullptr;
+        lenDynArr = 0;
     }
 }
 
 
-double timeSort(DynArr** arrArr, int numSort, int i)
+double timeSort(DynArr* const dynArr, int numSort, int i)
 {
     double time = -1;
     switch (numSort)
     {
     case 1:
-        time = measureTime(bind(&DynArr::bubbleSort, arrArr[i]));
+        time = measureTime(bind(&DynArr::bubbleSort, &dynArr[i]));
         break;
     case 2:
-        time = measureTime(bind(&DynArr::selectionSort, arrArr[i]));
+        time = measureTime(bind(&DynArr::selectionSort, &dynArr[i]));
         break;
     case 3:
-        time = measureTime(bind(&DynArr::insertSort, arrArr[i], 0, arrArr[i]->getLen() - 1));
+        time = measureTime(bind(&DynArr::insertSort, &dynArr[i], 0, dynArr[i].getLen() - 1));
         break;
     case 4:
-        time = measureTime(bind(&DynArr::mergeSort, arrArr[i], 0, arrArr[i]->getLen() - 1));
+        time = measureTime(bind(&DynArr::mergeSort, &dynArr[i], 0, dynArr[i].getLen() - 1));
         break;
     case 5:
-        time = measureTime(bind(&DynArr::quickSort, arrArr[i], 0, arrArr[i]->getLen() - 1));
+        time = measureTime(bind(&DynArr::quickSort, &dynArr[i], 0, dynArr[i].getLen() - 1));
         break;
     case 6:
-        time = measureTime(bind(&DynArr::shellSort, arrArr[i]));
+        time = measureTime(bind(&DynArr::shellSort, &dynArr[i]));
         break;
     case 7:
-        time = measureTime(bind(&DynArr::shellSortKnuth, arrArr[i]));
+        time = measureTime(bind(&DynArr::shellSortKnuth, &dynArr[i]));
         break;
     case 8:
-        time = measureTime(bind(&DynArr::shellSortHib, arrArr[i]));
+        time = measureTime(bind(&DynArr::shellSortHib, &dynArr[i]));
         break;
     case 9:
-        time = measureTime(bind(&DynArr::heapSort, arrArr[i], 0, arrArr[i]->getLen() - 1));
+        time = measureTime(bind(&DynArr::heapSort, &dynArr[i], 0, dynArr[i].getLen() - 1));
         break;
     case 10:
-        time = measureTime(bind(&DynArr::timSort, arrArr[i]));
+        time = measureTime(bind(&DynArr::timSort, &dynArr[i]));
         break;
     case 11:
-        time = measureTime(bind(&DynArr::introSort, arrArr[i]));
+        time = measureTime(bind(&DynArr::introSort, &dynArr[i]));
         break;
     }
     return time;
@@ -126,7 +126,7 @@ double timeSort(DynArr** arrArr, int numSort, int i)
 
 
 // Функция определяет время работы одной сортировки для выбранного количества и типа массивов
-void listSort(DynArr** arrArr, int lenArrArr, int numSort, int typeSort, ofstream& outFile)
+void listSort(DynArr* dynArr, int lenDynArr, int numSort, int typeSort, ofstream& outFile)
 {
     locale loc("rus");
     cout.imbue(loc);
@@ -135,19 +135,19 @@ void listSort(DynArr** arrArr, int lenArrArr, int numSort, int typeSort, ofstrea
     outFile << "Время для массивов в mc: " << endl;
 
     int numValues = 5;
-    for (int i = 0; i < lenArrArr; i++)
+    for (int i = 0; i < lenDynArr; i++)
     {
         double time = - 1, averageTime = 0;
         for (size_t j = 0; j < numValues; j++)
         {
-            arrArr[i]->fill(typeSort);
+            dynArr[i].fill(typeSort);
 
-            time = timeSort(arrArr, numSort, i);
+            time = timeSort(dynArr, numSort, i);
 
-            if (!arrArr[i]->isSorted())
+            if (!dynArr[i].isSorted())
             {
                 cout << "Ошибка сортировки.\n\n" << endl;
-                clArrArr(arrArr, lenArrArr);
+                clDynArr(dynArr, lenDynArr);
                 cout << "Очищение памяти успешно завершено.\n" << endl;
                 outFile.close();
                 exit(0);
@@ -156,7 +156,7 @@ void listSort(DynArr** arrArr, int lenArrArr, int numSort, int typeSort, ofstrea
             averageTime += time;
         }
         cout << averageTime / numValues << endl;
-        outFile << (int)averageTime / numValues << endl;
+        outFile << static_cast<int>(averageTime) / numValues << endl;
     }
     outFile << endl;
     cout << endl;
@@ -174,35 +174,36 @@ void printMenu(int lenNAMESORT)
 }
 
 
-void process(DynArr** const arrArr, int lenArrArr, ofstream& outFile)
+void process(DynArr* const dynArr, int lenDynArr, ofstream& outFile)
 {
     while (true)
     {
-        int lenNAMESORT = sizeof(NAMESORT) / sizeof(NAMESORT[0]);
+        int lenNameSort = sizeof(NAMESORT) / sizeof(NAMESORT[0]);
 
-        printMenu(lenNAMESORT);
+        printMenu(lenNameSort);
 
         cout << "Выберите номер сортировки из списка: ";
         int numSort = getValue();
+
         cout << endl << endl;
 
         if (numSort == 0)
         {
             cout << "Выбран выход из программы.\n\n" << endl;
-            break;
+            return;
         }
-        else if (numSort > 0 && numSort <= lenNAMESORT)
+        else if (numSort > 0 && numSort <= lenNameSort)
         {
             outFile << setfill('=') << setw(120);
-            outFile << "\n\nСортировка №" << numSort << ": " << NAMESORT[numSort - 1] << endl << endl;
-            cout << "Сортировка №" << numSort << ": " << NAMESORT[numSort - 1] << endl << endl;
+            outFile << "\n\nСортировка №" << numSort << ": " << NAMESORT[numSort - 1] << "\n" << endl;
+            cout << "Сортировка №" << numSort << ": " << NAMESORT[numSort - 1] << "\n" << endl;
 
-            int lenTYPESORT = sizeof(TYPESORT) / sizeof(TYPESORT[0]);
-            for (int i = 0; i < lenTYPESORT; i++)
+            int lenTypeSort = sizeof(TYPESORT) / sizeof(TYPESORT[0]);
+            for (int i = 0; i < lenTypeSort; i++)
             {
                 cout << TYPESORT[i] << " массивы" << endl;
                 outFile << TYPESORT[i] << " массивы\n" << endl;
-                listSort(arrArr, lenArrArr, numSort, i, outFile);
+                listSort(dynArr, lenDynArr, numSort, i, outFile);
             }
 
             cout << endl;

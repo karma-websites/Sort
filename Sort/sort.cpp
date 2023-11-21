@@ -1,5 +1,4 @@
-﻿#include <string>
-#include "func.h"
+﻿#include "func.h"
 
 
 int main()
@@ -10,14 +9,14 @@ int main()
         "Алгоритмы сортировки.\n"
         "Автор: Попов Максим. Группа 2309\n\n" << endl;
 
-    const char* filename = "outFile.txt";
+    const string filename = "outFile.txt";
     ofstream outFile(filename);
 
     try
     {
         if (!outFile.is_open())
         {
-            throw runtime_error("не удалось открыть файл " + (string)filename + " для записи.\n\n");
+            throw runtime_error("не удалось открыть файл " + filename + " для записи.\n\n");
         }
     }
     catch (const exception& ex)
@@ -27,15 +26,15 @@ int main()
     }
 
     cout << "Введите необходимое количестов массивов: ";
-    int lenArrArr = getValue();
-    DynArr** arrArr = new DynArr*[lenArrArr];
+    int lenDynArr = getValue();
+    DynArr* dynArr = new DynArr[lenDynArr];
 
     cout << "Выделение памяти под массивы." << endl;
-    newArrArr(arrArr, lenArrArr);
+    newDynArr(dynArr, lenDynArr);
 
-    process(arrArr, lenArrArr, outFile);
+    process(dynArr, lenDynArr, outFile);
 
-    clArrArr(arrArr, lenArrArr);
+    //clDynArr(dynArr, lenDynArr);
     cout << "Очищение памяти успешно завершено." << endl << endl;
 
     return 0;

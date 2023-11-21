@@ -1,4 +1,6 @@
 #pragma once
+
+#include <string>
 #include <chrono>
 #include <functional>
 #include <iomanip>
@@ -18,17 +20,20 @@ int getValue();
 
 // Функции обработки массива указателей на классы массивов
 
-void newArrArr(DynArr** const arrArr, int lenArrArr);
+void newDynArr(DynArr* const dynArr, int lenDynArr);
 
-void clArrArr(DynArr**& arrArr, int& lenArrArr);
+void clDynArr(DynArr*& dynArr, int& lenDynArr);
 
-double timeSort(DynArr** arrArr, int numSort, int i);
+double timeSort(DynArr* dynArr, int numSort, int i);
 
-void listSort(DynArr** arrArr, int lenArrArr, int numSort, int typeSort, ofstream& outFile);
+void listSort(DynArr* dynArr, int lenDynArr, int numSort, int typeSort, ofstream& outFile);
 
-void printMenu(int lenNAMESORT);
+void printMenu(int len_NAME_SORT);
 
-void process(DynArr** const arrArr, int lenArrArr, ofstream& outFile);
+void process(DynArr* const dynArr, int lenDynArr, ofstream& outFile);
+
+
+// Функция замера времени
 
 template<typename T>
 double measureTime(T function)

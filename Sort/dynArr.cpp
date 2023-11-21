@@ -1,5 +1,7 @@
 #include "dynArr.h"
 
+const int CODEERROR = -1;
+
 
 DynArr::DynArr(int lenArr)
 {
@@ -18,12 +20,6 @@ DynArr::DynArr(int lenArr)
 }
 
 
-DynArr::~DynArr()
-{
-    clear();
-}
-
-
 void DynArr::clear()
 {
     delete[] arr;
@@ -39,6 +35,7 @@ int DynArr::getEl(int index) const
     {
         return arr[index];
     }
+    return CODEERROR;
 }
 
 
@@ -415,9 +412,9 @@ void DynArr::heapSort(int low, int high) const
 }
 
 
-const int RUN = 32;
 void DynArr::timSort() const
 {
+    const int RUN = 32;
     int n = getLen();
 
     for (int i = 0; i < n; i += RUN)
